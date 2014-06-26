@@ -722,6 +722,11 @@ class GLMResults(base.LikelihoodModelResults):
     def bic(self):
         return self.deviance - self.df_resid*np.log(self.nobs)
 
+    def conf_int_profile(self, index=None, alpha=0.05):
+        from statsmodels.stats.profile_likelihood import conf_int_profile
+        return conf_int_profile(self, index=index, alpha=alpha)
+
+
     def remove_data(self):
         #GLM has alias/reference in result instance
         self._data_attr.extend([i for i in self.model._data_attr
