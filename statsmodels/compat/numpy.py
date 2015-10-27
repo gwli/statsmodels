@@ -287,3 +287,9 @@ else:
 
         return avg
 
+if NumpyVersion(np.__version__) >= '1.9.0':
+    np_percentile = np.percentile
+else:
+    def np_percentile(a, q, **kwds):
+        a_sorted = np.sort(a)
+        return np.array([np.percentile(a_sorted, qi, **kwds) for qi in q])
